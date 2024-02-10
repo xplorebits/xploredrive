@@ -1,4 +1,17 @@
-# Tauri + Vue 3 + TypeScript
+# XploreDrive
+
+All-in-one cloud file manager, simple and universal.
+
+A versatile open-source file explorer offering a unified interface for managing files across multiple cloud storage services, with enhanced security and collaboration features.
+
+### MVP
+
+- [ ] Databricks File System
+- [ ] Google Drive
+- [ ] Google Cloud Storage
+- [ ] Dropbox
+
+## Tauri + Vue 3 + TypeScript
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
