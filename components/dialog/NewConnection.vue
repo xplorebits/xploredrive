@@ -36,28 +36,63 @@
 
       <template #footer>
         <div class="flex items-center gap-3">
-          <div class="grow" />
           <UButton label="Cancel" variant="ghost" @click="() => isOpen = false" />
-          <UButton :disabled="selectedProviderIndex < 0" label="Setup" />
+          <div class="grow" />
+          <UButton
+            v-if="selectedProviderIndex > -1"
+            :disabled="selectedProviderIndex < 0"
+            label="Setup"
+            @click="onClickSetup"
+          />
+          <p v-else class="text-sm opacity-40">
+            Please select a provider/platform to setup.
+          </p>
         </div>
       </template>
     </UCard>
   </UModal>
+
+
+  <dialog-setup-google-cloud-storage ref="refSetupGoogleCloudStorage" />
 </template>
 
 <script setup>
-const isOpen = ref(false)
-
 const providers = [
-  { label: 'GCP: Google Cloud Storage', nameIcon: 'gcp' },
-  // { label: 'Databricks', nameIcon: 'databricks' }
+  {
+    label: 'GCP: Google Cloud Storage',
+    nameIcon: 'gcp',
+    run: () => refSetupGoogleCloudStorage.value.open()
+  }
 ]
 
+const isOpen = ref(false)
+const refSetupGoogleCloudStorage = ref(null)
 const selectedProviderIndex = ref(-1)
+
+watch(isOpen, (value) => {
+  if (!value) {
+    selectedProviderIndex.value = -1
+  }
+})
 
 const open = function () {
   isOpen.value = true
 }
 
-defineExpose({ open })
+const close = function () {
+  isOpen.value = false
+}
+
+const onClickSetup = function () {
+  const provider = providers[selectedProviderIndex.value]
+
+  if (!provider) {
+    return
+  }
+
+  close()
+  provider.run()
+}
+
+defineExpose({ open, close })
 </script>
