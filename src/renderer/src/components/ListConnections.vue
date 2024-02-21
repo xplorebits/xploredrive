@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-3">
-    <div class="flex items-center gap-3 h-12">
+    <div class="flex items-center gap-3 h-8">
       <p class="text-sm">XploreDrive</p>
       <div class="grow" />
       <button class="p-1 bg-transparent hover:bg-[#272936] rounded-sm">
