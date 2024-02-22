@@ -29,7 +29,7 @@
         <div class="grow" />
         <button
           :disabled="!selectionProvider"
-          class="bg-[#4B97F7] disabled:bg-[#282A3B] text-white disabled:text-body-text-dark px-6 py-2 text-sm rounded"
+          class="bg-[#4B97F7] bg-opacity-90 hover:bg-opacity-100 disabled:bg-[#282A3B] text-white disabled:text-body-text-dark px-6 py-2 text-sm rounded"
         >
           Next
         </button>
