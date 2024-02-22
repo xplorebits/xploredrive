@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen relative text-neutral-600 dark:text-[#929299]">
+  <div class="h-screen relative text-body-text-light dark:text-body-text-dark">
     <div class="absolute top-0 bottom-0 left-0 w-48 bg-neutral-100 dark:bg-[#0C0A13]">
       <div class="app-window-drag">
         <div class="h-7 app-window-drag w-full bg-transparent" />
@@ -12,8 +12,11 @@
       <div class="h-12 app-window-drag w-full bg-transparent border-b dark:border-[#272734]" />
     </div>
   </div>
+
+  <ModalsContainer />
 </template>
 
 <script setup>
+import { ModalsContainer } from 'vue-final-modal'
 import ListConnections from './components/ListConnections.vue'
 </script>

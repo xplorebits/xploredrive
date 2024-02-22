@@ -23,7 +23,10 @@
         </li>
       </ul>
       <div class="-mx-3">
-        <button class="w-full text-xs bg-transparent py-1.5 px-3 hover:text-white">
+        <button
+          class="w-full text-xs bg-transparent py-1.5 px-3 hover:text-white"
+          @click="() => modalNewConnection.open()"
+        >
           Add New Connection
         </button>
       </div>
@@ -33,6 +36,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useNewConnectionModal } from '../modals/NewConnection/Controller.js'
+
+const modalNewConnection = useNewConnectionModal()
 
 const connections = ref([
   { id: 't1234', name: 'Google Cloud Storage' },
