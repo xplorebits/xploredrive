@@ -16,7 +16,9 @@
       <ul>
         <li v-for="item in connections" :key="`list-connections-nav-${item.id}`" class="-mx-3">
           <button
-            class="text-sm px-3 py-1.5 bg-transparent hover:bg-[#272936] text-neutral-300 hover:text-white w-full text-left truncate"
+            :data-active="activeConnection === item.id"
+            class="data-[active=true]:bg-[#272936] data-[active=true]:bg-opacity-100 text-sm px-3 py-1.5 bg-transparent hover:bg-[#272936] bg-opacity-90 text-neutral-300 hover:text-white w-full text-left truncate"
+            @click="() => (activeConnection = item.id)"
           >
             {{ item.name }}
           </button>
@@ -35,14 +37,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useStorage } from '@vueuse/core'
 import { useNewConnectionModal } from '../modals/NewConnection/Controller.js'
 
 const modalNewConnection = useNewConnectionModal()
 
-const connections = ref([
-  { id: 't1234', name: 'Google Cloud Storage' },
+const connections = useStorage('connections', [
+  /* { id: 't1234', name: 'Google Cloud Storage' },
   { id: 't1235', name: 'Google Cloud Storage 2' },
-  { id: 't1235', name: 'Databricks EU1' }
+  { id: 't1235', name: 'Databricks EU1' } */
 ])
+
+const activeConnection = useStorage('activeConnection', '')
 </script>

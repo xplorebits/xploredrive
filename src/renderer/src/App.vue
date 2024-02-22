@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="absolute top-0 right-0 bottom-0 left-48 bg-neutral-50 dark:bg-[#16161E]">
-      <div class="h-12 app-window-drag w-full bg-transparent border-b dark:border-[#272734]" />
+      <FileExplorer />
     </div>
   </div>
 
@@ -19,4 +19,5 @@
 <script setup>
 import { ModalsContainer } from 'vue-final-modal'
 import ListConnections from './components/ListConnections.vue'
+import FileExplorer from './components/FileExplorer.vue'
 </script>

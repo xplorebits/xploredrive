@@ -30,6 +30,7 @@
         <button
           :disabled="!selectionProvider"
           class="bg-[#4B97F7] bg-opacity-90 hover:bg-opacity-100 disabled:bg-[#282A3B] text-white disabled:text-body-text-dark px-6 py-2 text-sm rounded"
+          @click="onClickNext"
         >
           Next
         </button>
@@ -39,9 +40,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
+import { ref, defineEmits } from 'vue'
 import { VueFinalModal } from 'vue-final-modal'
+import { useNewDatabricksConnection } from '../NewConnectionDatabricks/Controller.js'
+
+const emits = defineEmits(['confirm'])
 
 const selectionProvider = ref('')
 const providers = ref([{ id: 'provider-databricks', text: 'Databricks' }])
@@ -51,6 +54,17 @@ const onSelectProvider = function (id) {
     selectionProvider.value = ''
   } else {
     selectionProvider.value = id
+  }
+}
+
+const onClickNext = function () {
+  switch (selectionProvider.value) {
+    case 'provider-databricks':
+      useNewDatabricksConnection().open()
+      emits('confirm')
+      break
+    default:
+      break
   }
 }
 </script>
