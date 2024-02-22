@@ -5,13 +5,14 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useStorage } from '@vueuse/core'
+import { defineProps } from 'vue'
 
-const connections = useStorage('connections', [])
-const activeConnection = useStorage('activeConnection', '')
-
-const connection = computed(() => {
-  return connections.value.find((x) => x.id === activeConnection.value) || null
+defineProps({
+  connection: {
+    type: Object,
+    default: () => {
+      return {}
+    }
+  }
 })
 </script>

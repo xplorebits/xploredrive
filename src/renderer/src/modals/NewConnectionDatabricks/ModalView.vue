@@ -74,6 +74,7 @@ const onClickSave = function () {
   connections.value.push({
     id: uuidv4(),
     name: name.value,
+    url: url.value,
     token: token.value
   })
 

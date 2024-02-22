@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="absolute top-0 right-0 bottom-0 left-48 bg-neutral-50 dark:bg-[#16161E]">
-      <FileExplorer />
+      <FileExp />
     </div>
   </div>
 
@@ -19,5 +19,5 @@
 <script setup>
 import { ModalsContainer } from 'vue-final-modal'
 import ListConnections from './components/ListConnections.vue'
-import FileExplorer from './components/FileExplorer.vue'
+import FileExp from './components/FileExp.vue'
 </script>
