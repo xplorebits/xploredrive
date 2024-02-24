@@ -8,7 +8,12 @@
     <div
       class="absolute top-0 bottom-0 left-0 w-48 border-r dark:border-[#272734] px-2 overflow-y-auto"
     >
-      <SidebarExp :connection="connection" :tree-data="treeData" />
+      <SidebarExp
+        :connection="connection"
+        :tree-data="treeData"
+        :node-id="activeNodeId"
+        @click:node="(value) => (activeNodeId = value)"
+      />
     </div>
 
     <div class="absolute top-0 right-0 bottom-0 left-48 px-2">Files</div>
@@ -26,6 +31,7 @@ import SidebarExp from './SidebarExp.vue'
 const connections = useStorage('connections', [])
 const activeConnection = useStorage('activeConnection', '')
 
+const activeNodeId = ref('')
 const files = ref([])
 
 const treeData = computed(() => {
