@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { dbfsConnect } from './lib'
 
 function createWindow() {
   // Create the browser window.
@@ -69,6 +70,20 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+ipcMain.on('foo', function () {
+  console.log('foo from main')
+})
+
+ipcMain.on('dbfs-connnect', function (channel, data) {
+  dbfsConnect(data)
+    .then((response) => {
+      channel.reply('dbfs-connect', { success: true, data: response })
+    })
+    .catch((error) => {
+      channel.reply('dbfs-connect', { success: false, error: error })
+    })
 })
 
 // In this file you can include the rest of your app"s specific main process

@@ -14,8 +14,7 @@
 </template>
 
 <script setup>
-import axios from 'axios';
-import { watch, computed, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStorage } from '@vueuse/core'
 
 import HeaderExp from './HeaderExp.vue'
@@ -26,5 +25,26 @@ const activeConnection = useStorage('activeConnection', '')
 
 const connection = computed(() => {
   return connections.value.find((x) => x.id === activeConnection.value) || null
+})
+
+const init = async function () {
+  try {
+    const responseConnection = await window.api.connect({
+      url: connection.value?.url,
+      token: connection.value?.token
+    })
+
+    if (responseConnection) {
+      const responseRootList = await window.api.getList('/')
+      console.log(responseRootList)
+    }
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+onMounted(() => {
+  init()
 })
 </script>
