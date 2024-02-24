@@ -1,34 +1,10 @@
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import dbfs from './dbfs'
 
 // Custom APIs for renderer
 const api = {
-  connect: function (credentails) {
-    return new Promise((resolve, reject) => {
-      ipcRenderer.send('dbfs-connnect', credentails)
-
-      ipcRenderer.once('dbfs-connect', function (event, data) {
-        if (!data?.success) {
-          reject(data.error)
-        } else {
-          resolve(data.data)
-        }
-      })
-    })
-  },
-  getStatus: function (path) {
-    ipcRenderer.send('dbfs-get-status', path)
-  },
-  getList: function (path) {
-    ipcRenderer.send('dbfs-get-list', path)
-  },
-  createDirectory: function () {},
-  deleteDirectory: function () {},
-  deleteFile: function () {},
-  uploadFile: function () {},
-  openStream: function () {},
-  addBlock: function () {},
-  closeStream: function () {}
+  dbfs
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
