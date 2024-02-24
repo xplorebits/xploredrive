@@ -2,7 +2,7 @@
   <div class="py-2">
     <ul class="space-y-1">
       <li
-        v-for="item in treeData"
+        v-for="item in rootData"
         :key="`sidebar-exp-treeview-${item.id}`"
         :class="[item.id === nodeId ? 'sticky top-0 bottom-0' : '']"
       >
@@ -47,7 +47,7 @@
 import { defineEmits } from 'vue'
 
 defineProps({
-  treeData: {
+  rootData: {
     type: Array,
     default: () => {
       return []

@@ -1,7 +1,7 @@
 <template>
   <div class="absolute top-0 right-0 left-0 h-12">
     <div class="h-full app-window-drag w-full bg-transparent border-b dark:border-[#272734]">
-      <HeaderExp :connection="connection" />
+      <HeaderExp :connection="connection" :node-id="activeNodeId" :active-node="activeNode" />
     </div>
   </div>
   <div class="absolute top-12 right-0 bottom-0 left-0">
@@ -10,18 +10,20 @@
     >
       <SidebarExp
         :connection="connection"
-        :tree-data="treeData"
+        :root-data="rootData"
         :node-id="activeNodeId"
         @click:node="(value) => (activeNodeId = value)"
       />
     </div>
 
-    <div class="absolute top-0 right-0 bottom-0 left-48 px-2">Files</div>
+    <div class="absolute top-0 right-0 bottom-0 left-48 p-3">
+      {{ childNodes[activeNode.id] }}
+    </div>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { useStorage } from '@vueuse/core'
 
@@ -33,18 +35,39 @@ const activeConnection = useStorage('activeConnection', '')
 
 const activeNodeId = ref('')
 const files = ref([])
+const childNodes = ref({})
 
-const treeData = computed(() => {
+const rootData = computed(() => {
   return files.value.map((x) => ({
     ...x,
     id: uuidv4(),
-    name: x.path.split('/')[x.path.split('/').length - 1]
+    name: x.path.split('/')[x.path.split('/').length - 1],
   }))
+})
+
+const activeNode = computed(() => {
+  return rootData.value.find((x) => x.id === activeNodeId.value) || {}
 })
 
 const connection = computed(() => {
   return connections.value.find((x) => x.id === activeConnection.value) || null
 })
+
+watch(activeNode, (value) => {
+  if (value?.id && value?.is_dir === true) {
+    fetchChildNode(value)
+  }
+})
+
+const fetchChildNode = function (node) {
+  window.api.dbfs.getList(node.path)
+    .then((response) => {
+      childNodes.value[node.id] = response?.files || []
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
 
 const init = async function () {
   try {
