@@ -9,15 +9,16 @@
       class="absolute top-0 bottom-0 left-0 w-48 border-r dark:border-[#272734] px-2 overflow-y-auto"
     >
       <SidebarExp
+        :is-loading="statesLoading.nav"
         :connection="connection"
-        :root-data="rootData"
+        :root-data="rootNodes"
         :node-id="activeNodeId"
-        @click:node="(value) => (activeNodeId = value)"
+        @click:node="(value) => (nav = [value])"
       />
     </div>
 
     <div class="absolute top-0 right-0 bottom-0 left-48 p-3">
-      {{ childNodes[activeNode.id] }}
+      {{ activeNode }}
     </div>
   </div>
 </template>
@@ -32,25 +33,26 @@ import SidebarExp from './SidebarExp.vue'
 
 const connections = useStorage('connections', [])
 const activeConnection = useStorage('activeConnection', '')
-
-const activeNodeId = ref('')
-const files = ref([])
-const childNodes = ref({})
-
-const rootData = computed(() => {
-  return files.value.map((x) => ({
-    ...x,
-    id: uuidv4(),
-    name: x.path.split('/')[x.path.split('/').length - 1],
-  }))
-})
-
-const activeNode = computed(() => {
-  return rootData.value.find((x) => x.id === activeNodeId.value) || {}
+const nodes = ref([])
+const nav = ref([])
+const statesLoading = ref({
+  nav: false
 })
 
 const connection = computed(() => {
   return connections.value.find((x) => x.id === activeConnection.value) || null
+})
+
+const rootNodes = computed(() => {
+  return nodes.value.filter((x) => x.root)
+})
+
+const activeNodeId = computed(() => {
+  return nav.value[nav.value.length - 1]
+})
+
+const activeNode = computed(() => {
+  return nodes.value.find(x => x.id === activeNodeId.value) || {}
 })
 
 watch(activeNode, (value) => {
@@ -60,9 +62,11 @@ watch(activeNode, (value) => {
 })
 
 const fetchChildNode = function (node) {
-  window.api.dbfs.getList(node.path)
+  window.api.dbfs
+    .getList(node.path)
     .then((response) => {
-      childNodes.value[node.id] = response?.files || []
+      console.log(response)
+      // nodes.value[node.id] = response?.files || []
     })
     .catch((error) => {
       console.error(error)
@@ -71,6 +75,7 @@ const fetchChildNode = function (node) {
 
 const init = async function () {
   try {
+    statesLoading.value.nav = true
     const responseConnection = await window.api.dbfs.connect({
       url: connection.value?.url,
       token: connection.value?.token
@@ -78,11 +83,16 @@ const init = async function () {
 
     if (responseConnection) {
       const responseRootList = await window.api.dbfs.getList('/')
-      files.value = responseRootList.files
+      nodes.value = responseRootList.files.map((x) => {
+        const pathValues = x.path.split('/')
+        return { ...x, root: true, id: uuidv4(), name: pathValues[pathValues.length - 1] }
+      })
     }
 
+    statesLoading.value.nav = false
   } catch (error) {
     console.error(error)
+    statesLoading.value.nav = false
   }
 }
 

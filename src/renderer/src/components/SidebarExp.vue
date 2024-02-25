@@ -1,6 +1,9 @@
 <template>
-  <div class="py-2">
-    <ul class="space-y-1">
+  <div class="relative py-2">
+    <div v-if="isLoading" class="flex items-center justify-center h-[10vh]">
+      <Loading />
+    </div>
+    <ul v-else class="relative z-10 space-y-1">
       <li
         v-for="item in rootData"
         :key="`sidebar-exp-treeview-${item.id}`"
@@ -9,8 +12,8 @@
         <div
           :class="[
             item.id === nodeId
-              ? 'bg-primary-light dark:bg-primary-dark bg-opacity-60 dark:bg-opacity-60 hover:bg-opacity-80 text-black dark:text-white'
-              : 'bg-primary-light dark:bg-primary-dark bg-opacity-5 dark:bg-opacity-5 hover:bg-opacity-20',
+              ? 'bg-primary-light dark:bg-primary-dark text-black dark:text-white z-50'
+              : 'bg-primary-light dark:bg-primary-dark bg-opacity-5 dark:bg-opacity-5 hover:bg-opacity-20 z-10',
             'relative h-6 w-full select-none p-2'
           ]"
           name="test"
@@ -44,7 +47,8 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
+import { defineEmits, ref } from 'vue'
+import Loading from './Loading.vue'
 
 defineProps({
   rootData: {
@@ -57,6 +61,12 @@ defineProps({
     type: String,
     default: () => {
       return ''
+    }
+  },
+  isLoading: {
+    type: Boolean,
+    default: () => {
+      return false
     }
   }
 })
