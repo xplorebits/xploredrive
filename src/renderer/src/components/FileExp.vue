@@ -1,7 +1,12 @@
 <template>
   <div class="absolute top-0 right-0 left-0 h-12">
     <div class="h-full app-window-drag w-full bg-transparent border-b dark:border-[#272734]">
-      <HeaderExp :connection="connection" :node-id="activeNodeId" :active-node="activeNode" />
+      <HeaderExp
+        :connection="connection"
+        :node-id="activeNodeId"
+        :active-node="activeNode"
+        :active-folder-id="activeFolderId"
+      />
     </div>
   </div>
   <div class="absolute top-12 right-0 bottom-0 left-0">
@@ -22,9 +27,9 @@
       <div v-else-if="childrenOfActiveNode.length">
         <Folder
           :active-node="activeNode"
-          :active-folder-item="activeFolderItem"
+          :active-folder-id="activeFolderId"
           :nodes="childrenOfActiveNode"
-          @click:item="(value) => (activeFolderItem = value)"
+          @click:item="(value) => (activeFolderId = value)"
         />
       </div>
       <div v-else>
@@ -52,7 +57,7 @@ const statesLoading = ref({
   nav: false,
   exp: false
 })
-const activeFolderItem = ref('')
+const activeFolderId = ref('')
 
 const connection = computed(() => {
   return connections.value.find((x) => x.id === activeConnection.value) || null

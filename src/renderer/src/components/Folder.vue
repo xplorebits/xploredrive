@@ -5,7 +5,7 @@
       :key="`folder-${activeNode.id}-${node.id}`"
       :active="true"
       :class="[
-        activeFolderItem === node.id
+        activeFolderId === node.id
           ? 'bg-primary-light dark:bg-primary-dark bg-opacity-60 dark:bg-opacity-60 hover:bg-opacity-40 hover:dark:bg-opacity-40'
           : 'hover:bg-input-border-dark',
         'space-y-1 p-2 rounded'
@@ -17,7 +17,7 @@
       </div>
       <p
         :class="[
-          activeFolderItem === node.id ? 'text-white' : '',
+          activeFolderId === node.id ? 'text-white' : '',
           'text-xs text-center w-full max-w-[1208px] truncate'
         ]"
       >
@@ -44,7 +44,7 @@ defineProps({
       return []
     }
   },
-  activeFolderItem: {
+  activeFolderId: {
     type: String,
     default: () => {
       return false
