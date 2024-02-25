@@ -18,7 +18,18 @@
     </div>
 
     <div class="absolute top-0 right-0 bottom-0 left-48 p-3">
-      {{ activeNode }}
+      <Loading v-if="statesLoading.exp" />
+      <div v-else-if="childrenOfActiveNode.length">
+        <Folder
+          :active-node="activeNode"
+          :active-folder-item="activeFolderItem"
+          :nodes="childrenOfActiveNode"
+          @click:item="(value) => (activeFolderItem = value)"
+        />
+      </div>
+      <div v-else>
+        <p class="text-xs opacity-50">Empty Directory</p>
+      </div>
     </div>
   </div>
 </template>
@@ -30,21 +41,25 @@ import { useStorage } from '@vueuse/core'
 
 import HeaderExp from './HeaderExp.vue'
 import SidebarExp from './SidebarExp.vue'
+import Loading from './Loading.vue'
+import Folder from './Folder.vue'
 
 const connections = useStorage('connections', [])
 const activeConnection = useStorage('activeConnection', '')
 const nodes = ref([])
 const nav = ref([])
 const statesLoading = ref({
-  nav: false
+  nav: false,
+  exp: false
 })
+const activeFolderItem = ref('')
 
 const connection = computed(() => {
   return connections.value.find((x) => x.id === activeConnection.value) || null
 })
 
 const rootNodes = computed(() => {
-  return nodes.value.filter((x) => x.root)
+  return nodes.value.filter((x) => x.root && x.is_dir)
 })
 
 const activeNodeId = computed(() => {
@@ -52,7 +67,13 @@ const activeNodeId = computed(() => {
 })
 
 const activeNode = computed(() => {
-  return nodes.value.find(x => x.id === activeNodeId.value) || {}
+  return nodes.value.find((x) => x.id === activeNodeId.value) || {}
+})
+
+const childrenOfActiveNode = computed(() => {
+  return nodes.value.filter((x) =>
+    activeNodeId.value ? x.parentNodeId === activeNodeId.value : false
+  )
 })
 
 watch(activeNode, (value) => {
@@ -61,15 +82,35 @@ watch(activeNode, (value) => {
   }
 })
 
+// TODO: Move this into global utils
+const getNameFromPath = function (path) {
+  const pathValues = path.split('/')
+  return pathValues[pathValues.length - 1] || ''
+}
+
 const fetchChildNode = function (node) {
+  statesLoading.value.exp = true
   window.api.dbfs
     .getList(node.path)
     .then((response) => {
-      console.log(response)
-      // nodes.value[node.id] = response?.files || []
+      if (Array.isArray(response?.files)) {
+        response.files.forEach((item) => {
+          if (nodes.value.findIndex((x) => x.path === item.path) < 0) {
+            nodes.value.push({
+              ...item,
+              id: uuidv4(),
+              name: getNameFromPath(item.path),
+              parentNodeId: node.id
+            })
+          }
+        })
+      }
     })
     .catch((error) => {
       console.error(error)
+    })
+    .finally(() => {
+      statesLoading.value.exp = false
     })
 }
 
@@ -84,8 +125,7 @@ const init = async function () {
     if (responseConnection) {
       const responseRootList = await window.api.dbfs.getList('/')
       nodes.value = responseRootList.files.map((x) => {
-        const pathValues = x.path.split('/')
-        return { ...x, root: true, id: uuidv4(), name: pathValues[pathValues.length - 1] }
+        return { ...x, root: true, id: uuidv4(), name: getNameFromPath(x.path) }
       })
     }
 
