@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen relative text-body-text-light dark:text-body-text-dark">
-    <div class="absolute top-0 bottom-0 left-0 w-48 bg-neutral-100 dark:bg-[#0C0A13]">
+    <div class="absolute top-0 bottom-0 left-0 w-48 bg-white dark:bg-[#0C0A13]">
       <div class="app-window-drag">
         <div class="h-7 app-window-drag w-full bg-transparent" />
       </div>

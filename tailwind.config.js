@@ -12,7 +12,9 @@ export default {
         'input-bg-dark': '#292B38',
         'input-bg-light': '#292B38',
         'input-border-dark': '#313240',
-        'input-border-light': '#313240'
+        'input-border-light': '#313240',
+        'list-item-dark': '#272936',
+        'list-item-light': '#E0E0E3'
       }
     }
   },
