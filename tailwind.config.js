@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'text-dark': '#929299',
-        'text-light': colors.neutral[600],
+        'body-dark': '#929299',
+        'body-light': colors.neutral[600],
         'primary-dark': '#4B97F7',
         'primary-light': '#4B97F7',
         'input-bg-dark': '#292B38',

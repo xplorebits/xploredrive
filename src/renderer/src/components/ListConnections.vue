@@ -17,7 +17,7 @@
         <li v-for="item in connections" :key="`list-connections-nav-${item.id}`" class="-mx-3">
           <button
             :data-active="activeConnection === item.id"
-            class="data-[active=true]:bg-list-item-light data-[active=true]:dark:bg-list-item-dark data-[active=true]:bg-opacity-100 text-sm px-3 py-1.5 bg-transparent hover:bg-[#272936] bg-opacity-90 text-text-light dark:text-text-dark hover:text-black hover:dark:text-white w-full text-left truncate"
+            class="data-[active=true]:bg-list-item-light data-[active=true]:dark:bg-list-item-dark data-[active=true]:bg-opacity-100 text-sm px-3 py-1.5 bg-transparent hover:bg-[#272936] bg-opacity-90 text-body-light dark:text-body-dark hover:text-black hover:dark:text-white w-full text-left truncate"
             @click="() => (activeConnection = item.id)"
           >
             {{ item.name }}
@@ -26,7 +26,7 @@
       </ul>
       <div class="-mx-3">
         <button
-          class="w-full text-xs bg-transparent py-1.5 px-3 text-text-light dark:text-text-dark hover:text-black hover:dark:text-white"
+          class="w-full text-xs bg-transparent py-1.5 px-3 text-body-light dark:text-body-dark hover:text-black hover:dark:text-white"
           @click="() => modalNewConnection.open()"
         >
           Add New Connection

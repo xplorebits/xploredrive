@@ -23,9 +23,7 @@
             <div class="flex items-center justify-center h-full">
               <svg
                 :class="[
-                  item.id === nodeId
-                    ? 'text-black dark:text-white'
-                    : 'text-primary-light dark:text-primary-dark',
+                  item.id === nodeId ? 'text-white' : 'text-primary-light dark:text-primary-dark',
                   'w-4 h-4'
                 ]"
                 xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +35,14 @@
           </div>
           <div class="absolute top-0 right-0 bottom-0 left-4 px-2">
             <div class="flex items-center h-full">
-              <p class="text-xs truncate">{{ item.name }}</p>
+              <p
+                :class="[
+                  item.id === nodeId ? 'text-white' : 'text-body-light dark:text-body-dark',
+                  'text-xs truncate'
+                ]"
+              >
+                {{ item.name }}
+              </p>
             </div>
           </div>
         </div>
