@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'body-text-dark': '#929299',
-        'body-text-light': colors.neutral[600],
+        'text-dark': '#929299',
+        'text-light': colors.neutral[600],
         'primary-dark': '#4B97F7',
         'primary-light': '#4B97F7',
         'input-bg-dark': '#292B38',
@@ -14,7 +14,9 @@ export default {
         'input-border-dark': '#313240',
         'input-border-light': '#313240',
         'list-item-dark': '#272936',
-        'list-item-light': '#E0E0E3'
+        'list-item-light': '#E0E0E3',
+        'line-light': '#F4F4F5',
+        'line-dark': '#2D2E3A'
       }
     }
   },
