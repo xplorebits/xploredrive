@@ -23,7 +23,8 @@
     "@vueuse/core": "^10.8.0",
     "electron-updater": "^6.1.7",
     "uuid": "^9.0.1",
-    "vue-final-modal": "^4.5.4"
+    "vue-final-modal": "^4.5.4",
+    "vue3-popper": "^1.5.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.1",

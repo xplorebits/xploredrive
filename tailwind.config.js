@@ -5,6 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        'var-1': '#0C0A13',
         'body-dark': '#929299',
         'body-light': colors.neutral[600],
         'primary-dark': '#4B97F7',
