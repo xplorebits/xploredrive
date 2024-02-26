@@ -6,9 +6,9 @@
       :active="true"
       :class="[
         activeFolderId === node.id
-          ? 'bg-primary-light dark:bg-primary-dark bg-opacity-60 dark:bg-opacity-60 hover:bg-opacity-40 hover:dark:bg-opacity-40'
-          : 'hover:bg-input-border-dark',
-        'space-y-1 p-2 rounded'
+          ? 'bg-primary-light dark:bg-primary-dark bg-opacity-40 dark:bg-opacity-40 hover:bg-opacity-20 hover:dark:bg-opacity-20'
+          : 'hover:bg-input-border-light hover:dark:bg-input-border-dark',
+        'space-y-1 p-2 rounded cursor-pointer select-none'
       ]"
       @click="() => emits('click:item', node.id)"
     >
@@ -17,7 +17,7 @@
       </div>
       <p
         :class="[
-          activeFolderId === node.id ? 'text-white' : '',
+          activeFolderId === node.id ? 'text-body-light dark:text-body-dark' : '',
           'text-xs text-center w-full max-w-[1208px] truncate'
         ]"
       >
