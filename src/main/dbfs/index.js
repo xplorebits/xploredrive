@@ -1,22 +1,33 @@
 import { ipcMain } from 'electron'
-import { dbfsConnect, dbfsList } from './lib'
+import { dbfsConnect, dbfsList, dbfsDeleteDir, dbfsDeleteFile } from './lib'
 
-ipcMain.on('dbfs-connnect', function (channel, data) {
-  dbfsConnect(data)
-    .then((response) => {
-      channel.reply('dbfs-connect', { success: true, data: response })
-    })
-    .catch((error) => {
-      channel.reply('dbfs-connect', { success: false, error: error })
-    })
-})
+const channels = [
+  {
+    name: 'dbfs-connnect',
+    handler: dbfsConnect
+  },
+  {
+    name: 'dbfs-get-list',
+    handler: dbfsList
+  },
+  {
+    name: 'dbfs-delete-dir',
+    handler: dbfsDeleteDir
+  },
+  {
+    name: 'dbfs-delete-file',
+    handler: dbfsDeleteFile
+  }
+]
 
-ipcMain.on('dbfs-get-list', function (channel, data) {
-  dbfsList(data)
-    .then((response) => {
-      channel.reply('dbfs-get-list', { success: true, data: response })
-    })
-    .catch((error) => {
-      channel.reply('dbfs-get-list', { success: false, error: error })
-    })
+channels.forEach((ch) => {
+  ipcMain.on(ch.name, function (channel, data) {
+    ch.handler(data)
+      .then((response) => {
+        channel.reply(ch.name, { success: true, data: response })
+      })
+      .catch((error) => {
+        channel.reply(ch.name, { success: false, error: error })
+      })
+  })
 })
