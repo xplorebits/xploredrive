@@ -12,8 +12,8 @@
         <div
           :class="[
             item.id === nodeId
-              ? 'bg-primary-light dark:bg-primary-dark text-black dark:text-white z-50'
-              : 'bg-primary-light dark:bg-primary-dark bg-opacity-5 dark:bg-opacity-5 hover:bg-opacity-20 z-10',
+              ? 'bg-primary text-white z-50'
+              : 'bg-primary bg-opacity-5 hover:bg-opacity-20 z-10',
             'relative h-6 w-full select-none p-2'
           ]"
           name="test"
@@ -23,7 +23,7 @@
             <div class="flex items-center justify-center h-full">
               <svg
                 :class="[
-                  item.id === nodeId ? 'text-white' : 'text-primary-light dark:text-primary-dark',
+                  item.id === nodeId ? 'text-white' : 'text-primary',
                   'w-4 h-4'
                 ]"
                 xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
             <div class="flex items-center h-full">
               <p
                 :class="[
-                  item.id === nodeId ? 'text-white' : 'text-body-light dark:text-body-dark',
+                  item.id === nodeId ? 'text-white' : 'text-body',
                   'text-xs truncate'
                 ]"
               >

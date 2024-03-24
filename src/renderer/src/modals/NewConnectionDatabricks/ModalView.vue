@@ -1,10 +1,10 @@
 <template>
   <VueFinalModal
     class="flex justify-center items-center"
-    content-class="flex flex-col w-full max-w-xl mx-4 p-4 bg-white dark:bg-[#252631] border dark:border-[#323342] text-neutral-600 dark:text-body-dark rounded-lg space-y-2"
+    content-class="flex flex-col w-full max-w-xl mx-4 p-4 bg-[#252631] border border-[#323342] text-body rounded-lg space-y-2"
   >
     <div class="space-y-3">
-      <p class="text-black dark:text-white text-lg">New Databricks Connection</p>
+      <p class="text-white text-lg">New Databricks Connection</p>
 
       <div class="space-y-2">
         <div class="space-y-1">
@@ -13,7 +13,7 @@
             id="input-connection-name-new-connection-databricks"
             v-model="name"
             placeholder="Type here"
-            class="block px-3 py-2 text-sm w-full rounded bg-input-bg-light dark:bg-input-bg-dark border border-input-border-light dark:border-input-dark"
+            class="block px-3 py-2 text-sm w-full rounded bg-input-bg border border-input-dark"
           />
         </div>
 
@@ -25,7 +25,7 @@
             id="input-connection-url-new-connection-databricks"
             v-model="url"
             placeholder="https://<domain>.provider.com"
-            class="block px-3 py-2 text-sm w-full rounded bg-input-bg-light dark:bg-input-bg-dark border border-input-border-light dark:border-input-dark"
+            class="block px-3 py-2 text-sm w-full rounded bg-input-bg border border-input-dark"
           />
         </div>
 
@@ -38,7 +38,7 @@
             v-model="token"
             placeholder="Paste your token here"
             type="password"
-            class="block px-3 py-2 text-sm w-full rounded bg-input-bg-light dark:bg-input-bg-dark border border-input-border-light dark:border-input-dark"
+            class="block px-3 py-2 text-sm w-full rounded bg-input-bg border border-input-dark"
           />
         </div>
       </div>
@@ -46,7 +46,7 @@
       <div class="flex items-center gap-3 h-auto">
         <div class="grow" />
         <button
-          class="bg-[#4B97F7] bg-opacity-90 hover:bg-opacity-100 disabled:bg-[#282A3B] text-white disabled:text-body-dark px-6 py-2 text-sm rounded"
+          class="bg-[#4B97F7] bg-opacity-90 hover:bg-opacity-100 disabled:bg-[#282A3B] text-white disabled:text-body px-6 py-2 text-sm rounded"
           @click="onClickSave"
         >
           Save

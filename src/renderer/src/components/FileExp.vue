@@ -1,6 +1,6 @@
 <template>
   <div class="absolute top-0 right-0 left-0 h-12">
-    <div class="h-full app-window-drag w-full bg-transparent border-b dark:border-[#272734]">
+    <div class="h-full app-window-drag w-full bg-transparent border-b border-[#272734]">
       <HeaderExp
         :connection="connection"
         :node-id="activeNodeId"
@@ -11,7 +11,7 @@
   </div>
   <div class="absolute top-12 right-0 bottom-0 left-0">
     <div
-      class="absolute top-0 bottom-0 left-0 w-48 border-r dark:border-[#272734] px-2 overflow-y-auto"
+      class="absolute top-0 bottom-0 left-0 w-48 border-r border-[#272734] px-2 overflow-y-auto"
     >
       <SidebarExp
         :is-loading="statesLoading.nav"

@@ -3,8 +3,8 @@
     <svg
       :class="[
         item.id === nodeId
-          ? 'text-black dark:text-white'
-          : 'text-primary-light dark:text-primary-dark'
+          ? 'text-white'
+          : 'text-primary'
       ]"
       width="auto"
       height="auto"
