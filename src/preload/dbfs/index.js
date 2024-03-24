@@ -31,7 +31,19 @@ export default {
     })
   },
   createDirectory: function () {},
-  deleteDirectory: function () {},
+  deleteDirectory: function (path) {
+    return new Promise((resolve, reject) => {
+      ipcRenderer.send('dbfs-delete-dir', path)
+
+      ipcRenderer.once('dbfs-delete-dir', function (event, data) {
+        if (!data?.success) {
+          reject(data.error)
+        } else {
+          resolve(data.data)
+        }
+      })
+    })
+  },
   deleteFile: function () {},
   uploadFile: function () {},
   openStream: function () {},
