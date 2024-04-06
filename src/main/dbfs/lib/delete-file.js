@@ -1,5 +1,4 @@
-import { deleteFile } from 'dbfs-api'
-
 export const dbfsDeleteFile = async function (path = '') {
-  return await deleteFile(path)
+  const dbfsApi = await import('dbfs-api')
+  return await dbfsApi.deleteFile(path)
 }

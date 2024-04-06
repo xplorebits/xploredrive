@@ -3,7 +3,7 @@ import { dbfsConnect, dbfsList, dbfsDeleteDir, dbfsDeleteFile } from './lib'
 
 const channels = [
   {
-    name: 'dbfs-connnect',
+    name: 'dbfs-connect',
     handler: dbfsConnect
   },
   {

@@ -1,5 +1,4 @@
-import { deleteDirectory } from 'dbfs-api'
-
 export const dbfsDeleteDir = async function (path = '') {
-  return await deleteDirectory(path, true)
+  const dbfsApi = await import('dbfs-api')
+  return await dbfsApi.deleteDirectory(path, true)
 }

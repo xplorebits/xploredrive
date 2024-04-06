@@ -3,7 +3,7 @@ import { ipcRenderer } from 'electron'
 export default {
   connect: function (credentails) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.send('dbfs-connnect', credentails)
+      ipcRenderer.send('dbfs-connect', credentails)
 
       ipcRenderer.once('dbfs-connect', function (event, data) {
         if (!data?.success) {

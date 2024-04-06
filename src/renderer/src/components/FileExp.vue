@@ -6,6 +6,7 @@
         :node-id="activeNodeId"
         :active-node="activeNode"
         :active-folder-id="activeFolderId"
+        @delete-folder="onClickDeleteFolder"
       />
     </div>
   </div>
@@ -139,6 +140,17 @@ const init = async function () {
     console.error(error)
     statesLoading.value.nav = false
   }
+}
+
+const onClickDeleteFolder = function (path) {
+  window.api.dbfs.deleteDirectory(path, true)
+    .then(() => {
+      const ti = nodes.value.findIndex(x => x.path === path)
+
+      if (ti > -1) {
+        nodes.value.splice(ti, 1)
+      }
+    })
 }
 
 onMounted(() => {
